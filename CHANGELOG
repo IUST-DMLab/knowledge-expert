@@ -1,0 +1,4 @@
+* 1.0.0
+    - Spring web mvc
+    - Spring Security
+    - Read user from mongodb
