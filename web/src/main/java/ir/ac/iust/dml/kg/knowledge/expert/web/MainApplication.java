@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
-@ImportResource({"classpath:persistence-context.xml"})
+@ImportResource({"classpath:persistence-context.xml", "classpath:web-services-def.xml"})
 public class MainApplication {
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);
