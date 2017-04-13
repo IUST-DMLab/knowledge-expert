@@ -23,12 +23,16 @@
     </bean>
 
     <bean id="helloService" class="ir.ac.iust.dml.kg.knowledge.expert.web.services.hello.HelloServiceImpl"/>
+    <bean id="v1ExpertService" class="ir.ac.iust.dml.kg.knowledge.expert.web.services.v1.ExpertServiceImpl"/>
 
     <jaxws:endpoint implementor="#helloService" address="/ws/v0"/>
-    <jaxrs:server address="/rs">
+    <jaxws:endpoint implementor="#v1ExpertService" address="/ws/v1/experts"/>
+    <jaxrs:server id="jaxRsServer" address="/rs">
         <jaxrs:serviceBeans>
             <ref bean="helloService"/>
+            <ref bean="v1ExpertService"/>
         </jaxrs:serviceBeans>
+
         <jaxrs:features>
             <bean class="org.apache.cxf.jaxrs.swagger.Swagger2Feature"/>
         </jaxrs:features>

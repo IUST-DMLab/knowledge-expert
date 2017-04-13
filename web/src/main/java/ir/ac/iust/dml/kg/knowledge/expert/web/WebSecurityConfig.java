@@ -1,9 +1,15 @@
 package ir.ac.iust.dml.kg.knowledge.expert.web;
 
+import io.swagger.config.ScannerFactory;
+import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.models.Swagger;
+import io.swagger.models.auth.BasicAuthDefinition;
 import ir.ac.iust.dml.kg.knowledge.expert.web.security.SmartHttpSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/services/rs/v1/experts/login").permitAll()
+                .antMatchers("/services/rs/v1/**").authenticated()
+                .antMatchers("/services/rs/hello/**").authenticated()
+                .antMatchers("/services/**").permitAll()
                 .anyRequest().authenticated()
                 .and().requestCache().requestCache(new NullRequestCache())
                 .and().formLogin().loginPage("/login").permitAll()
@@ -73,5 +83,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public HttpSessionStrategy httpSessionStrategy() {
         return new SmartHttpSessionStrategy();
+    }
+
+    @Bean
+    @DependsOn("jaxRsServer")
+    public ServletContextInitializer initializer() {
+        return servletContext -> {
+            final BeanConfig scanner = (BeanConfig) ScannerFactory.getScanner();
+            final Swagger swagger = scanner.getSwagger();
+            swagger.securityDefinition("basic", new BasicAuthDefinition());
+            servletContext.setAttribute("swagger", swagger);
+        };
     }
 }

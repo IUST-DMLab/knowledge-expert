@@ -30,10 +30,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         final Set<GrantedAuthority> authorities = new HashSet<>();
         if (user.getPermissions().contains(UserPermission.Superuser))
             for (UserPermission permission : UserPermission.values())
-                authorities.add(new SimpleGrantedAuthority(permission.toString()));
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + permission.toString().toUpperCase()));
         else
             for (UserPermission permission : user.getPermissions())
-                authorities.add(new SimpleGrantedAuthority(permission.toString()));
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + permission.toString().toUpperCase()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }
