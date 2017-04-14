@@ -2,3 +2,6 @@
     - Spring web mvc
     - Spring Security
     - Read user from mongodb
+    - Login with basic authentication or x-auth-token
+    - V1 Assign triple service
+    - V1 Vote on triple
