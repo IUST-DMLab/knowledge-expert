@@ -11,6 +11,7 @@
           http://www.springframework.org/schema/aop/spring-aop.xsd
           http://www.springframework.org/schema/data/mongo
           http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+    <context:property-placeholder location="persistence.properties"/>
     <context:annotation-config/>
     <context:component-scan base-package="ir.ac.iust.dml.kg.knowledge.expert.access"/>
     <aop:aspectj-autoproxy/>
@@ -26,5 +27,8 @@
     <bean class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg ref="mongo"/>
         <constructor-arg name="databaseName" value="KGExperts"/>
+    </bean>
+    <bean class="ir.ac.iust.dml.kg.knowledge.store.client.V1StoreClient">
+        <constructor-arg name="url" value="${store.service.url}"/>
     </bean>
 </beans>
