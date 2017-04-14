@@ -20,6 +20,10 @@ public class Triple {
     public Triple() {
     }
 
+    public Triple(String identifier) {
+        this.identifier = identifier;
+    }
+
     public String getIdentifier() {
         return identifier;
     }
