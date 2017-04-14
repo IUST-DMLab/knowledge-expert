@@ -32,6 +32,16 @@ public class V1StoreClient {
         return result;
     }
 
+    public Boolean vote(String identifier, String expert, Vote vote) {
+        return client.reset().path("/rs/v1/experts/vote")
+                .query("identifier", identifier)
+                .query("module", "web")
+                .query("expert", expert)
+                .query("vote", vote)
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .get(Boolean.class);
+    }
+
 
 }
 

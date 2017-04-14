@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
+import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -49,6 +50,17 @@ public interface IExpertServices {
     PagingList<Ticket> triplesCurrent(
             @WebParam(name = "page") @QueryParam("page") int page,
             @WebParam(name = "pageCount") @QueryParam("pageCount") int pageCount
+    );
+
+    @GET
+    @Path("/vote")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "Vote on ticket",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    Boolean vote(
+            @WebParam(name = "identifier") @QueryParam("identifier") String identifier,
+            @WebParam(name = "vote") @QueryParam("vote") Vote vote
     );
 
 }

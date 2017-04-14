@@ -7,6 +7,8 @@ import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
 import ir.ac.iust.dml.kg.knowledge.expert.web.security.MyUserDetails;
 import ir.ac.iust.dml.kg.knowledge.store.client.Triple;
 import ir.ac.iust.dml.kg.knowledge.store.client.V1StoreClient;
+import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,5 +60,20 @@ public class ExpertServiceImpl implements IExpertServices {
     public PagingList<Ticket> triplesCurrent(int page, int pageCount) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         return ticketDao.readAssignedTicket(user, page, pageCount);
+    }
+
+    @Override
+    public Boolean vote(String identifier, Vote vote) {
+        final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        final Ticket ticket = ticketDao.read(new ObjectId(identifier));
+        if (ticket != null) {
+            ticket.setVoteEpoch(System.currentTimeMillis());
+            ticket.setVote(vote);
+            if (client.vote(ticket.getTriple().getIdentifier(), user.getUsername(), vote)) {
+                ticketDao.write(ticket);
+                return true;
+            }
+        }
+        return false;
     }
 }
