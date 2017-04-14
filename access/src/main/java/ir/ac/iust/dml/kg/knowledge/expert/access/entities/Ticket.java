@@ -23,6 +23,7 @@ public class Ticket {
     private ObjectId id;
     private Triple triple;
     @DBRef
+    @JsonIgnore
     private User user;
     private long assignEpoch;
     private long voteEpoch;

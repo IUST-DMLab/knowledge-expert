@@ -3,7 +3,9 @@ package ir.ac.iust.dml.kg.knowledge.expert.web;
 import io.swagger.config.ScannerFactory;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.models.Swagger;
+import io.swagger.models.auth.ApiKeyAuthDefinition;
 import io.swagger.models.auth.BasicAuthDefinition;
+import io.swagger.models.auth.In;
 import ir.ac.iust.dml.kg.knowledge.expert.web.security.SmartHttpSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -94,6 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             final BeanConfig scanner = (BeanConfig) ScannerFactory.getScanner();
             final Swagger swagger = scanner.getSwagger();
             swagger.securityDefinition("basic", new BasicAuthDefinition());
+            swagger.securityDefinition("session", new ApiKeyAuthDefinition("x-auth-token", In.HEADER));
             servletContext.setAttribute("swagger", swagger);
         };
     }

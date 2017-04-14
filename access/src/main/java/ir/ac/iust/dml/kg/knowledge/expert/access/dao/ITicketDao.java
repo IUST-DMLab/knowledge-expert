@@ -15,5 +15,7 @@ public interface ITicketDao {
 
     Ticket read(ObjectId id);
 
+    Ticket read(User user, String identifier);
+
     PagingList<Ticket> readAssignedTicket(User user, int page, int pageSize);
 }

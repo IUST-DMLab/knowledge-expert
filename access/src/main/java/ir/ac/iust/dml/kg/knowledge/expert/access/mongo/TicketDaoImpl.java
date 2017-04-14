@@ -40,6 +40,14 @@ public class TicketDaoImpl implements ITicketDao {
     }
 
     @Override
+    public Ticket read(User user, String identifier) {
+        final Query query = new Query()
+                .addCriteria(Criteria.where("user").is(user))
+                .addCriteria(Criteria.where("triple.identifier").is(identifier));
+        return op.findOne(query, Ticket.class);
+    }
+
+    @Override
     public PagingList<Ticket> readAssignedTicket(User user, int page, int pageSize) {
         final Query query = new Query()
                 .addCriteria(Criteria.where("user").is(user))
