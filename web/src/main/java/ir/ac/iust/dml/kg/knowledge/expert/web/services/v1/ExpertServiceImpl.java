@@ -57,9 +57,9 @@ public class ExpertServiceImpl implements IExpertServices {
     }
 
     @Override
-    public PagingList<Ticket> triplesCurrent(int page, int pageCount) {
+    public PagingList<Ticket> triplesCurrent(int page, int pageSize) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        return ticketDao.readAssignedTicket(user, page, pageCount);
+        return ticketDao.readAssignedTicket(user, page, pageSize);
     }
 
     @Override

@@ -49,7 +49,7 @@ public interface IExpertServices {
             authorizations = {@Authorization("basic"), @Authorization("session")})
     PagingList<Ticket> triplesCurrent(
             @WebParam(name = "page") @QueryParam("page") int page,
-            @WebParam(name = "pageCount") @QueryParam("pageCount") int pageCount
+            @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize
     );
 
     @GET
