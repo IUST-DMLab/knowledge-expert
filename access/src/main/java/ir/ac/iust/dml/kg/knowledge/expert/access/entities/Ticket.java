@@ -15,7 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "tickets")
 @CompoundIndexes({
-        @CompoundIndex(name = "triple_index", def = "{'triple.identifier': 1, 'user' : 2, }", unique = true)
+        @CompoundIndex(name = "triple_index", def = "{'triple.identifier': 1, 'user' : 2, }", unique = true),
+        @CompoundIndex(name = "triple_subject", def = "{'triple.subject': 1, 'user' : 2, }", unique = false)
 })
 public class Ticket {
     @Id

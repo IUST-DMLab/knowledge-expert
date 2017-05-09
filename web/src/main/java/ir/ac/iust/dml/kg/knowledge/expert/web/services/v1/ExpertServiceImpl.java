@@ -4,6 +4,7 @@ import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.dao.ITicketDao;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.expert.web.security.MyUserDetails;
 import ir.ac.iust.dml.kg.knowledge.store.client.Triple;
 import ir.ac.iust.dml.kg.knowledge.store.client.V1StoreClient;
@@ -37,9 +38,20 @@ public class ExpertServiceImpl implements IExpertServices {
     }
 
     @Override
-    public List<Ticket> triplesNew(int count) {
+    public List<Ticket> triplesNewByRandom(int count) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         final List<Triple> newTriples = client.triples(user.getUsername(), 50);
+        return assign(newTriples, user);
+    }
+
+    @Override
+    public List<Ticket> triplesNewBySubject(String sourceModule, String subject) {
+        final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        final List<Triple> newTriples = client.triplesSubject(sourceModule, user.getUsername(), subject);
+        return assign(newTriples, user);
+    }
+
+    private List<Ticket> assign(List<Triple> newTriples, User user) {
         final List<Ticket> newTickets = new ArrayList<>();
         newTriples.forEach(triple -> {
             final Ticket old = ticketDao.read(user, triple.getIdentifier());
@@ -57,9 +69,15 @@ public class ExpertServiceImpl implements IExpertServices {
     }
 
     @Override
-    public PagingList<Ticket> triplesCurrent(int page, int pageSize) {
+    public PagingList<Ticket> triplesCurrent(String subject, int page, int pageSize) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        return ticketDao.readAssignedTicket(user, page, pageSize);
+        return ticketDao.readAssignedTicket(user, subject, page, pageSize);
+    }
+
+    @Override
+    public PagingList<KeyCount> subjectsCurrent(int page, int pageSize) {
+        final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        return ticketDao.readAssignedSubjects(user, page, pageSize);
     }
 
     @Override

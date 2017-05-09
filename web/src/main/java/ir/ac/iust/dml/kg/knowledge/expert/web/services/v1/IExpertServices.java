@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 
 import javax.jws.WebMethod;
@@ -34,12 +35,21 @@ public interface IExpertServices {
     List<String> login();
 
     @GET
-    @Path("/triples/new")
+    @Path("/triples/new/random")
     @Produces(MediaType.APPLICATION_JSON)
     @WebMethod
     @ApiOperation(value = "Get a list of new triple and return as ticket",
             authorizations = {@Authorization("basic"), @Authorization("session")})
-    List<Ticket> triplesNew(@WebParam(name = "count") @QueryParam("count") int count);
+    List<Ticket> triplesNewByRandom(@WebParam(name = "count") @QueryParam("count") int count);
+
+    @GET
+    @Path("/triples/new/subject")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "Get a list of new triple for a subject and return as ticket",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    List<Ticket> triplesNewBySubject(@WebParam(name = "sourceModule") @QueryParam("sourceModule") String sourceModule,
+                                     @WebParam(name = "subject") @QueryParam("subject") String subject);
 
     @GET
     @Path("/triples/current")
@@ -48,9 +58,22 @@ public interface IExpertServices {
     @ApiOperation(value = "Return a list of current assigned ticket",
             authorizations = {@Authorization("basic"), @Authorization("session")})
     PagingList<Ticket> triplesCurrent(
+            @WebParam(name = "subject") @QueryParam("subject") String subject,
             @WebParam(name = "page") @QueryParam("page") int page,
             @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize
     );
+
+    @GET
+    @Path("/subjects/current")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "Return a list of current assigned subjects",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    PagingList<KeyCount> subjectsCurrent(
+            @WebParam(name = "page") @QueryParam("page") int page,
+            @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize
+    );
+
 
     @GET
     @Path("/vote")
