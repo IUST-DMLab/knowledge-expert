@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 
 import javax.jws.WebMethod;
@@ -57,9 +58,22 @@ public interface IExpertServices {
     @ApiOperation(value = "Return a list of current assigned ticket",
             authorizations = {@Authorization("basic"), @Authorization("session")})
     PagingList<Ticket> triplesCurrent(
+            @WebParam(name = "subject") @QueryParam("subject") String subject,
             @WebParam(name = "page") @QueryParam("page") int page,
             @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize
     );
+
+    @GET
+    @Path("/subjects/current")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "Return a list of current assigned subjects",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    PagingList<KeyCount> subjectsCurrent(
+            @WebParam(name = "page") @QueryParam("page") int page,
+            @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize
+    );
+
 
     @GET
     @Path("/vote")

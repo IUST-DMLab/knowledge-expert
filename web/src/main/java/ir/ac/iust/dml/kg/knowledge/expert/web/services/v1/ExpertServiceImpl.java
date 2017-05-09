@@ -4,6 +4,7 @@ import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.dao.ITicketDao;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.expert.web.security.MyUserDetails;
 import ir.ac.iust.dml.kg.knowledge.store.client.Triple;
 import ir.ac.iust.dml.kg.knowledge.store.client.V1StoreClient;
@@ -68,9 +69,15 @@ public class ExpertServiceImpl implements IExpertServices {
     }
 
     @Override
-    public PagingList<Ticket> triplesCurrent(int page, int pageSize) {
+    public PagingList<Ticket> triplesCurrent(String subject, int page, int pageSize) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        return ticketDao.readAssignedTicket(user, page, pageSize);
+        return ticketDao.readAssignedTicket(user, subject, page, pageSize);
+    }
+
+    @Override
+    public PagingList<KeyCount> subjectsCurrent(int page, int pageSize) {
+        final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        return ticketDao.readAssignedSubjects(user, page, pageSize);
     }
 
     @Override

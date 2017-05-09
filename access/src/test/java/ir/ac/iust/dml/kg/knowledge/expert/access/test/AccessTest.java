@@ -64,11 +64,11 @@ public class AccessTest {
         } catch (Throwable th) {
             assert true;
         }
-        assert ticketDao.readAssignedTicket(defUser1, 0, 0).getTotalSize() == 2;
+        assert ticketDao.readAssignedTicket(defUser1, null, 0, 0).getTotalSize() == 2;
         ticket2.setVote(Vote.Approve);
         ticketDao.write(ticket2);
-        assert ticketDao.readAssignedTicket(defUser1, 0, 0).getTotalSize() == 1;
-        assert ticketDao.readAssignedTicket(defUser1, 0, 0).getData().get(0).getIdentifier().equals(ticket1.getIdentifier());
+        assert ticketDao.readAssignedTicket(defUser1, null, 0, 0).getTotalSize() == 1;
+        assert ticketDao.readAssignedTicket(defUser1, null, 0, 0).getData().get(0).getIdentifier().equals(ticket1.getIdentifier());
         ticketDao.delete(ticket1, ticket2);
     }
 }
