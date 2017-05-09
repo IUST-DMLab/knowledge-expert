@@ -34,12 +34,21 @@ public interface IExpertServices {
     List<String> login();
 
     @GET
-    @Path("/triples/new")
+    @Path("/triples/new/random")
     @Produces(MediaType.APPLICATION_JSON)
     @WebMethod
     @ApiOperation(value = "Get a list of new triple and return as ticket",
             authorizations = {@Authorization("basic"), @Authorization("session")})
-    List<Ticket> triplesNew(@WebParam(name = "count") @QueryParam("count") int count);
+    List<Ticket> triplesNewByRandom(@WebParam(name = "count") @QueryParam("count") int count);
+
+    @GET
+    @Path("/triples/new/subject")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "Get a list of new triple for a subject and return as ticket",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    List<Ticket> triplesNewBySubject(@WebParam(name = "sourceModule") @QueryParam("sourceModule") String sourceModule,
+                                     @WebParam(name = "subject") @QueryParam("subject") String subject);
 
     @GET
     @Path("/triples/current")

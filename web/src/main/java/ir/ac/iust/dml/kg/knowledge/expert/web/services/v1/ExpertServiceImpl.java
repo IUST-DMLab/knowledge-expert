@@ -37,9 +37,20 @@ public class ExpertServiceImpl implements IExpertServices {
     }
 
     @Override
-    public List<Ticket> triplesNew(int count) {
+    public List<Ticket> triplesNewByRandom(int count) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         final List<Triple> newTriples = client.triples(user.getUsername(), 50);
+        return assign(newTriples, user);
+    }
+
+    @Override
+    public List<Ticket> triplesNewBySubject(String sourceModule, String subject) {
+        final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        final List<Triple> newTriples = client.triplesSubject(sourceModule, user.getUsername(), subject);
+        return assign(newTriples, user);
+    }
+
+    private List<Ticket> assign(List<Triple> newTriples, User user) {
         final List<Ticket> newTickets = new ArrayList<>();
         newTriples.forEach(triple -> {
             final Ticket old = ticketDao.read(user, triple.getIdentifier());

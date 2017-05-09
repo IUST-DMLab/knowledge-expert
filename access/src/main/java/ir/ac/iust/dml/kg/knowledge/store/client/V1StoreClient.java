@@ -21,11 +21,14 @@ public class V1StoreClient {
     }
 
     public List<Triple> triplesSubject(String sourceModule, String expert, String subject) {
-        final Collection<? extends Triple> triples = client.reset().path("/rs/v1/experts/triples/subject")
-                .query("sourceModule", sourceModule)
+        WebClient req = client.reset().path("/rs/v1/experts/triples/subject");
+        if (sourceModule != null)
+            req = req.query("sourceModule", sourceModule);
+        if (subject != null)
+            req = req.query("subject", subject);
+        final Collection<? extends Triple> triples = req
                 .query("module", "web")
                 .query("expert", expert)
-                .query("subject", subject)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .getCollection(Triple.class);
         final List<Triple> result = new ArrayList<>();
