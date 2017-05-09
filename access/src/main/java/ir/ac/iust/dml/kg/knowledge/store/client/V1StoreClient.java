@@ -20,6 +20,19 @@ public class V1StoreClient {
         this.client = WebClient.create(url, Collections.singletonList(new JacksonJsonProvider()));
     }
 
+    public List<Triple> triplesSubject(String sourceModule, String expert, String subject) {
+        final Collection<? extends Triple> triples = client.reset().path("/rs/v1/experts/triples/subject")
+                .query("sourceModule", sourceModule)
+                .query("module", "web")
+                .query("expert", expert)
+                .query("subject", subject)
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .getCollection(Triple.class);
+        final List<Triple> result = new ArrayList<>();
+        triples.forEach(result::add);
+        return result;
+    }
+
     public List<Triple> triples(String expert, int count) {
         final Collection<? extends Triple> triples = client.reset().path("/rs/v1/experts/triples")
                 .query("module", "web")
