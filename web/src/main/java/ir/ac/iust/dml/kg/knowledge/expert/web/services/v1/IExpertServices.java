@@ -11,11 +11,10 @@ import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -85,5 +84,13 @@ public interface IExpertServices {
             @WebParam(name = "identifier") @QueryParam("identifier") String identifier,
             @WebParam(name = "vote") @QueryParam("vote") Vote vote
     );
+
+    @POST
+    @Path("/vote/batch")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "Vote on ticket",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    Boolean batchVote(@Valid HashMap<String, Vote> votes);
 
 }
