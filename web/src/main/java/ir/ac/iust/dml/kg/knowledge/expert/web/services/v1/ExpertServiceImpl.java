@@ -15,8 +15,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.jws.WebService;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -93,5 +95,15 @@ public class ExpertServiceImpl implements IExpertServices {
             }
         }
         return false;
+    }
+
+    @Override
+    public Boolean batchVote(@Valid HashMap<String, Vote> votes) {
+        final boolean[] result = {true};
+        votes.forEach((id, vote) -> {
+            if (!vote(id, vote))
+                result[0] = false;
+        });
+        return result[0];
     }
 }
