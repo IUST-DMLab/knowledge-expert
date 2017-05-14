@@ -6,5 +6,6 @@ package ir.ac.iust.dml.kg.knowledge.expert.access.entities;
 public enum UserPermission {
     Superuser,
     User,
-    Expert, VIPExpert
+    Expert, VIPExpert,
+    MappingExpert
 }

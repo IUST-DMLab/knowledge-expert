@@ -18,6 +18,7 @@ public class User implements Serializable {
     private ObjectId id;
     @Indexed(unique = true)
     private String username;
+    @JsonIgnore
     private String password;
     private String name;
     private Set<UserPermission> permissions;
@@ -31,6 +32,10 @@ public class User implements Serializable {
         this.name = name;
         this.permissions = new HashSet<>();
         Collections.addAll(this.permissions, permissions);
+    }
+
+    public String getIdentifier() {
+        return id.toString();
     }
 
     public ObjectId getId() {
