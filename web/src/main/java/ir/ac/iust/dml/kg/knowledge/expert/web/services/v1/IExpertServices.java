@@ -48,7 +48,9 @@ public interface IExpertServices {
     @ApiOperation(value = "Get a list of new triple for a subject and return as ticket",
             authorizations = {@Authorization("basic"), @Authorization("session")})
     List<Ticket> triplesNewBySubject(@WebParam(name = "sourceModule") @QueryParam("sourceModule") String sourceModule,
-                                     @WebParam(name = "subject") @QueryParam("subject") String subject);
+                                     @WebParam(name = "subjectQuery") @QueryParam("subjectQuery") String subjectQuery,
+                                     @WebParam(name = "subjectMatch") @QueryParam("subjectMatch") String subjectMatch,
+                                     @WebParam(name = "size") @QueryParam("size") Integer size);
 
     @GET
     @Path("/triples/current")

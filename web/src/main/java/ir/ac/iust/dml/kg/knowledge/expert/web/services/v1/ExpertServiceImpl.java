@@ -47,9 +47,9 @@ public class ExpertServiceImpl implements IExpertServices {
     }
 
     @Override
-    public List<Ticket> triplesNewBySubject(String sourceModule, String subject) {
+    public List<Ticket> triplesNewBySubject(String sourceModule, String subjectQuery, String subjectMatch, Integer size) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        final List<Triple> newTriples = client.triplesSubject(sourceModule, user.getUsername(), subject);
+        final List<Triple> newTriples = client.triplesSubject(sourceModule, user.getUsername(), subjectQuery, subjectMatch, size);
         return assign(newTriples, user);
     }
 

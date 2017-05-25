@@ -21,8 +21,8 @@ public class ClientTest {
 
     @Test
     public void test() {
-        List<Triple> triples = client.triples("test", 10);
+//        List<Triple> triples = client.triples("test", 10);
 
-        List<Triple> triples2 = client.triplesSubject("wikipedia/infobox", "hossein", "/Esteghlal");
+        List<Triple> triples2 = client.triplesSubject("wiki", "hossein", null, null, 10000);
     }
 }
