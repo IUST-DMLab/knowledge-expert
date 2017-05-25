@@ -20,12 +20,16 @@ public class V1StoreClient {
         this.client = WebClient.create(url, Collections.singletonList(new JacksonJsonProvider()));
     }
 
-    public List<Triple> triplesSubject(String sourceModule, String expert, String subject) {
+    public List<Triple> triplesSubject(String sourceModule, String expert, String subjectQuery, String subjectMatch, Integer size) {
         WebClient req = client.reset().path("/rs/v1/experts/triples/subject");
         if (sourceModule != null)
             req = req.query("sourceModule", sourceModule);
-        if (subject != null)
-            req = req.query("subject", subject);
+        if (subjectQuery != null)
+            req = req.query("subjectQuery", subjectQuery);
+        if (subjectMatch != null)
+            req = req.query("subjectMatch", subjectMatch);
+        if (size != null)
+            req = req.query("size", size);
         final Collection<? extends Triple> triples = req
                 .query("module", "web")
                 .query("expert", expert)
