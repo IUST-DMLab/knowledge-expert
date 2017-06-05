@@ -86,7 +86,7 @@ public class ExpertServiceImpl implements IExpertServices {
     public Boolean vote(String identifier, Vote vote) {
         final User user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         final Ticket ticket = ticketDao.read(new ObjectId(identifier));
-        if (ticket != null) {
+        if (ticket != null && ticket.getUser().getId().equals(user.getId())) {
             ticket.setVoteEpoch(System.currentTimeMillis());
             ticket.setVote(vote);
             if (client.vote(ticket.getTriple().getIdentifier(), user.getUsername(), vote)) {

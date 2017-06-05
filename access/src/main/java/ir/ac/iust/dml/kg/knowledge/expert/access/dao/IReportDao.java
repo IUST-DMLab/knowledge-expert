@@ -1,0 +1,25 @@
+package ir.ac.iust.dml.kg.knowledge.expert.access.dao;
+
+import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
+import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
+import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserStats;
+import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
+
+/**
+ * Dao for reports of expert activities
+ */
+public interface IReportDao {
+    PagingList<Ticket> searchTicketState(User user, String subject,
+                                         Boolean hasVote, Vote vote,
+                                         int page, int pageSize);
+
+    PagingList<KeyCount> searchSubjectState(User user,
+                                            Boolean hasVote, Vote vote,
+                                            int page, int pageSize);
+
+    PagingList<UserStats> searchUserState(User user,
+                                          Boolean hasVote, Vote vote,
+                                          int page, int pageSize);
+}

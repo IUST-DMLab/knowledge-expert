@@ -7,5 +7,6 @@ public enum UserPermission {
     Superuser,
     User,
     Expert, VIPExpert,
+    Report,
     MappingExpert
 }

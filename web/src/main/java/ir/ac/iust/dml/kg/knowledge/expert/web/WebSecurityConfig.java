@@ -46,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/services/rs/v1/experts/login").permitAll()
                 .antMatchers("/services/rs/v1/users/login").permitAll()
                 .antMatchers("/services/rs/v1/users/**").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/services/rs/v1/reports/login").permitAll()
+                .antMatchers("/services/rs/v1/reports/**").hasAnyAuthority("ROLE_REPORT")
                 .antMatchers("/services/rs/v1/**").authenticated()
                 .antMatchers("/services/rs/hello/**").authenticated()
                 .antMatchers("/services/**").permitAll()

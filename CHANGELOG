@@ -1,3 +1,6 @@
+* 1.4.0
+    - Add reports service
+
 * 1.0.0
     - Spring web mvc
     - Spring Security
