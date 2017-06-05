@@ -5,6 +5,7 @@ import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserStats;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserVoteStats;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 
 /**
@@ -15,11 +16,15 @@ public interface IReportDao {
                                          Boolean hasVote, Vote vote,
                                          int page, int pageSize);
 
-    PagingList<KeyCount> searchSubjectState(User user,
-                                            Boolean hasVote, Vote vote,
-                                            int page, int pageSize);
+    PagingList<KeyCount> countBySubject(User user,
+                                        Boolean hasVote, Vote vote,
+                                        int page, int pageSize);
 
-    PagingList<UserStats> searchUserState(User user,
-                                          Boolean hasVote, Vote vote,
-                                          int page, int pageSize);
+    PagingList<UserStats> countByUser(User user,
+                                      Boolean hasVote, Vote vote,
+                                      int page, int pageSize);
+
+    PagingList<UserVoteStats> countByUserVote(User user,
+                                              Boolean hasVote, Vote vote,
+                                              int page, int pageSize);
 }
