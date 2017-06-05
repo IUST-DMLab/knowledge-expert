@@ -7,6 +7,7 @@ import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserStats;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserVoteStats;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,14 +43,20 @@ public class ReportsServiceImpl implements IReportService {
     }
 
     @Override
-    public PagingList<KeyCount> subjects(String username, Boolean hasVote, Vote vote, int page, int pageSize) {
+    public PagingList<KeyCount> countBySubject(String username, Boolean hasVote, Vote vote, int page, int pageSize) {
         User user = username != null ? userDao.readByUsername(username) : null;
-        return reportDao.searchSubjectState(user, hasVote, vote, page, pageSize);
+        return reportDao.countBySubject(user, hasVote, vote, page, pageSize);
     }
 
     @Override
-    public PagingList<UserStats> users(String username, Boolean hasVote, Vote vote, int page, int pageSize) {
+    public PagingList<UserStats> countByUser(String username, Boolean hasVote, Vote vote, int page, int pageSize) {
         User user = username != null ? userDao.readByUsername(username) : null;
-        return reportDao.searchUserState(user, hasVote, vote, page, pageSize);
+        return reportDao.countByUser(user, hasVote, vote, page, pageSize);
+    }
+
+    @Override
+    public PagingList<UserVoteStats> countByUserVote(String username, Boolean hasVote, Vote vote, int page, int pageSize) {
+        User user = username != null ? userDao.readByUsername(username) : null;
+        return reportDao.countByUserVote(user, hasVote, vote, page, pageSize);
     }
 }

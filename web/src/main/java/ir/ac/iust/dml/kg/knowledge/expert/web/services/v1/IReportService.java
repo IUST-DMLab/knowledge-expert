@@ -7,6 +7,7 @@ import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserStats;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserVoteStats;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 
 import javax.jws.WebMethod;
@@ -51,12 +52,12 @@ public interface IReportService {
             @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize);
 
     @GET
-    @Path("/subjects")
+    @Path("/count/subject")
     @Produces(MediaType.APPLICATION_JSON)
     @WebMethod
     @ApiOperation(value = "List subjects by vote state",
             authorizations = {@Authorization("basic"), @Authorization("session")})
-    PagingList<KeyCount> subjects(
+    PagingList<KeyCount> countBySubject(
             @WebParam(name = "username") @QueryParam("username") String username,
             @WebParam(name = "hasVote") @QueryParam("hasVote") Boolean hasVote,
             @WebParam(name = "vote") @QueryParam("vote") Vote vote,
@@ -64,12 +65,25 @@ public interface IReportService {
             @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize);
 
     @GET
-    @Path("/users")
+    @Path("/count/user")
     @Produces(MediaType.APPLICATION_JSON)
     @WebMethod
     @ApiOperation(value = "List users by vote state",
             authorizations = {@Authorization("basic"), @Authorization("session")})
-    PagingList<UserStats> users(
+    PagingList<UserStats> countByUser(
+            @WebParam(name = "username") @QueryParam("username") String username,
+            @WebParam(name = "hasVote") @QueryParam("hasVote") Boolean hasVote,
+            @WebParam(name = "vote") @QueryParam("vote") Vote vote,
+            @WebParam(name = "page") @QueryParam("page") int page,
+            @WebParam(name = "pageSize") @QueryParam("pageSize") int pageSize);
+
+    @GET
+    @Path("/count/users_votes")
+    @Produces(MediaType.APPLICATION_JSON)
+    @WebMethod
+    @ApiOperation(value = "List users by vote state",
+            authorizations = {@Authorization("basic"), @Authorization("session")})
+    PagingList<UserVoteStats> countByUserVote(
             @WebParam(name = "username") @QueryParam("username") String username,
             @WebParam(name = "hasVote") @QueryParam("hasVote") Boolean hasVote,
             @WebParam(name = "vote") @QueryParam("vote") Vote vote,

@@ -6,6 +6,7 @@ import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserStats;
+import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserVoteStats;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -41,9 +42,9 @@ public class ReportDaoImpl implements IReportDao {
     }
 
     @Override
-    public PagingList<KeyCount> searchSubjectState(User user,
-                                                   Boolean hasVote, Vote vote,
-                                                   int page, int pageSize) {
+    public PagingList<KeyCount> countBySubject(User user,
+                                               Boolean hasVote, Vote vote,
+                                               int page, int pageSize) {
         final List<AggregationOperation> operations = new ArrayList<>();
         if (user != null)
             operations.add(Aggregation.match(Criteria.where("user").is(user)));
@@ -57,9 +58,9 @@ public class ReportDaoImpl implements IReportDao {
     }
 
     @Override
-    public PagingList<UserStats> searchUserState(User user,
-                                                 Boolean hasVote, Vote vote,
-                                                 int page, int pageSize) {
+    public PagingList<UserStats> countByUser(User user,
+                                             Boolean hasVote, Vote vote,
+                                             int page, int pageSize) {
         final List<AggregationOperation> operations = new ArrayList<>();
         if (user != null)
             operations.add(Aggregation.match(Criteria.where("user").is(user)));
@@ -70,5 +71,21 @@ public class ReportDaoImpl implements IReportDao {
         operations.add(Aggregation.group("user").count().as("count"));
         return DaoUtils
                 .aggregate(op, Ticket.class, UserStats.class, page, pageSize, operations.toArray(new AggregationOperation[operations.size()]));
+    }
+
+    @Override
+    public PagingList<UserVoteStats> countByUserVote(User user,
+                                                     Boolean hasVote, Vote vote,
+                                                     int page, int pageSize) {
+        final List<AggregationOperation> operations = new ArrayList<>();
+        if (user != null)
+            operations.add(Aggregation.match(Criteria.where("user").is(user)));
+        if (vote != null)
+            operations.add(Aggregation.match(Criteria.where("vote").is(vote)));
+        else if (hasVote != null)
+            operations.add(Aggregation.match(Criteria.where("vote").exists(hasVote)));
+        operations.add(Aggregation.group("user", "vote").count().as("count"));
+        return DaoUtils
+                .aggregate(op, Ticket.class, UserVoteStats.class, page, pageSize, operations.toArray(new AggregationOperation[operations.size()]));
     }
 }
