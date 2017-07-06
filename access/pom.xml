@@ -18,6 +18,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg</groupId>
+            <artifactId>knowledge-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!-- MongoDB java driver -->
         <dependency>
             <groupId>org.mongodb</groupId>
