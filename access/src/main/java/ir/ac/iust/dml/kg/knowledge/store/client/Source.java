@@ -1,10 +1,12 @@
 package ir.ac.iust.dml.kg.knowledge.store.client;
 
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * data class for encapsulate
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Source {
     private String module;
     private Set<String> urls;
