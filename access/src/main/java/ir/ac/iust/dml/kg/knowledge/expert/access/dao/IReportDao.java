@@ -9,6 +9,10 @@ import ir.ac.iust.dml.kg.knowledge.expert.access.stats.UserVoteStats;
 import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * Dao for reports of expert activities
  */
 public interface IReportDao {

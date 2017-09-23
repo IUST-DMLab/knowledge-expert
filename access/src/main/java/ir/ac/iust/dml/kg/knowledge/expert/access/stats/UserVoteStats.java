@@ -5,6 +5,10 @@ import ir.ac.iust.dml.kg.knowledge.store.client.Vote;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * Created by HosseiN on 05/06/2017.
  */
 public class UserVoteStats {

@@ -1,9 +1,14 @@
 package ir.ac.iust.dml.kg.knowledge.store.client;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.*;
+
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * data class for encapsulate
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

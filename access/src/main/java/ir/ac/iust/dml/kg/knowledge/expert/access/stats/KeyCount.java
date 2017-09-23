@@ -1,6 +1,10 @@
 package ir.ac.iust.dml.kg.knowledge.expert.access.stats;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * Class to count key
  */
 public class KeyCount {
