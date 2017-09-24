@@ -10,6 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * ‌ Client to use knowledge store service /rs//v1/experts
  */
 public class V1StoreClient {

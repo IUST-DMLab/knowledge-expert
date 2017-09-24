@@ -1,5 +1,6 @@
 package ir.ac.iust.dml.kg.knowledge.expert.access.mongo;
 
+import ir.ac.iust.dml.kg.knowledge.commons.MongoDaoUtils;
 import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.dao.IUserDao;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.User;
@@ -11,6 +12,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * impl {@link IUserDao}
  */
 @Repository
@@ -54,6 +59,6 @@ public class UserDaoImpl implements IUserDao {
             query.addCriteria(Criteria.where("name").regex(name));
         if (username != null)
             query.addCriteria(Criteria.where("username").regex(username));
-        return DaoUtils.paging(op, User.class, query, page, pageSize);
+        return MongoDaoUtils.paging(op, User.class, query, page, pageSize);
     }
 }

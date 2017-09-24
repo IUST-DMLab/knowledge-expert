@@ -11,6 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * User detail to be stored in session
  */
 public class MyUserDetails implements UserDetails {

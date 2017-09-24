@@ -1,5 +1,6 @@
 package ir.ac.iust.dml.kg.knowledge.expert.access.mongo;
 
+import ir.ac.iust.dml.kg.knowledge.commons.MongoDaoUtils;
 import ir.ac.iust.dml.kg.knowledge.commons.PagingList;
 import ir.ac.iust.dml.kg.knowledge.expert.access.dao.ITicketDao;
 import ir.ac.iust.dml.kg.knowledge.expert.access.entities.Ticket;
@@ -57,7 +58,7 @@ public class TicketDaoImpl implements ITicketDao {
                 .addCriteria(Criteria.where("vote").exists(false));
         if (subject != null)
             query.addCriteria(Criteria.where("triple.subject").is(subject));
-        return DaoUtils.paging(op, Ticket.class, query, page, pageSize);
+        return MongoDaoUtils.paging(op, Ticket.class, query, page, pageSize);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class TicketDaoImpl implements ITicketDao {
         final AggregationOperation[] operations = new AggregationOperation[2];
         operations[0] = Aggregation.match(Criteria.where("user").is(user).and("vote").exists(false));
         operations[1] = Aggregation.group("triple.subject").count().as("count");
-        return DaoUtils
+        return MongoDaoUtils
                 .aggregate(op, Ticket.class, KeyCount.class, page, pageSize, operations);
     }
 }

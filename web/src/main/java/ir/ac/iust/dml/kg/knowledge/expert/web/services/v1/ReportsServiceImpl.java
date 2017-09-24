@@ -19,6 +19,9 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
  *
  */
 @WebService(endpointInterface = "ir.ac.iust.dml.kg.knowledge.expert.web.services.v1.IReportService")

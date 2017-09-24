@@ -7,6 +7,10 @@ import ir.ac.iust.dml.kg.knowledge.expert.access.stats.KeyCount;
 import org.bson.types.ObjectId;
 
 /**
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by HosseiN Khademi khaledi
+ *
  * Interface dao for ticket entity operation
  */
 public interface ITicketDao {
