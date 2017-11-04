@@ -7,7 +7,7 @@
     <groupId>ir.ac.iust.dml.kg.knowledge.expert</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <name>Knowledge Expert</name>
 
     <modules>
